@@ -11,13 +11,19 @@ namespace Assets.Scripts
 {
     internal class CharacterID : MonoBehaviour
     {
-        public string Name { get; set; }
-        public DateTime Birthday { get; set; }
+
+        public void Initialize(string name, DateTime birthday, RenderTexture photoId)
+        {
+            _nameField.text = name;
+            _dateField.text = birthday.ToShortDateString();
+            _photoField.texture = photoId;
+
+        }
         public RenderTexture PhotoRenderTexture { get; set; }
         [SerializeField]
         private TextMeshProUGUI _nameField;
         [SerializeField]
-        private TextMeshProUGUI _dateFied;
+        private TextMeshProUGUI _dateField;
         [SerializeField]
         private RawImage _photoField;
     }

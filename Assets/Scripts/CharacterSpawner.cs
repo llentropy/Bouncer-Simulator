@@ -33,14 +33,14 @@ public class CharacterSpawner : MonoBehaviour
             Destroy(_currentCharacter);
         }
         _currentCharacter = Instantiate(_characterPrefab, this.transform);
-        _currentCharacter.transform.localScale *= 35;
         _characterBodyParts = new List<Transform>();
         foreach(Transform child in _currentCharacter.transform)
         {
             _characterBodyParts.Add(child);
         }
         AssignCharacterMaterial();
-        _idSpawner.SpawnId();
+        var camera = _currentCharacter.transform.GetComponentInChildren<Camera>();
+        _idSpawner.SpawnId(camera.targetTexture);
     }
 
     private void AssignCharacterMaterial()
