@@ -9,6 +9,7 @@ public class CharacterSpawner : MonoBehaviour
     private GameObject _characterPrefab;
     [SerializeField]
     private IDSpawner _idSpawner;
+ 
     private GameObject _currentCharacter;
 
     private List<Transform> _characterBodyParts;
@@ -40,7 +41,8 @@ public class CharacterSpawner : MonoBehaviour
         }
         AssignCharacterMaterial();
         var camera = _currentCharacter.transform.GetComponentInChildren<Camera>();
-        _idSpawner.SpawnId(camera.targetTexture);
+      
+        _idSpawner.SpawnId(camera);
     }
 
     private void AssignCharacterMaterial()

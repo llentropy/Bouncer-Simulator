@@ -15,7 +15,7 @@ namespace Assets.Scripts
         public void Initialize(string name, DateTime birthday, RenderTexture photoId)
         {
             _nameField.text = name;
-            _dateField.text = birthday.ToShortDateString();
+            _dateField.text = birthday.ToString("dd/MM/yyy");
             _photoField.texture = photoId;
 
         }
