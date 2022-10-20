@@ -11,10 +11,14 @@ namespace Assets.Scripts
 {
     internal class CharacterID : MonoBehaviour
     {
+        public string Name;
+        public DateTime Birthday;
 
         public void Initialize(string name, DateTime birthday, RenderTexture photoId)
         {
+            Name = name;
             _nameField.text = name;
+            Birthday = birthday;
             _dateField.text = birthday.ToString("dd/MM/yyy");
             _photoField.texture = photoId;
 

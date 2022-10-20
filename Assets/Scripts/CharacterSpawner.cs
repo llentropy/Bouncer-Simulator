@@ -10,7 +10,7 @@ public class CharacterSpawner : MonoBehaviour
     [SerializeField]
     private IDSpawner _idSpawner;
  
-    private GameObject _currentCharacter;
+    public GameObject _currentCharacter;
 
     private List<Transform> _characterBodyParts;
 
@@ -25,6 +25,7 @@ public class CharacterSpawner : MonoBehaviour
         {
             _characterMaterials.Add(material as Material);
         }
+        SpawnNewCharacter();
     }
 
     public void SpawnNewCharacter()
