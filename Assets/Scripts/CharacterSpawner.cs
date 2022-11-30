@@ -7,12 +7,8 @@ public class CharacterSpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject _characterPrefab;
-    [SerializeField]
-    private IDSpawner _idSpawner;
  
     public GameObject _currentCharacter;
-
-    private List<Transform> _characterBodyParts;
 
     private List<Material> _characterMaterials;
 
@@ -25,36 +21,45 @@ public class CharacterSpawner : MonoBehaviour
         {
             _characterMaterials.Add(material as Material);
         }
-        SpawnNewCharacter();
+        var character = SpawnNewCharacter();
     }
 
-    public void SpawnNewCharacter()
+    public GameObject SpawnNewCharacter(bool isFake = false)
     {
-        if(_currentCharacter != null)
+        Vector3 characterPosition = Waypoints.Instance.wayPointsList[0].position;
+        Transform newParent = this.transform;
+        if (isFake)
         {
-            Destroy(_currentCharacter);
+            newParent = null;
+            characterPosition = Vector3.one * 800000000;
         }
-        _currentCharacter = Instantiate(_characterPrefab, this.transform);
-        _characterBodyParts = new List<Transform>();
-        foreach(Transform child in _currentCharacter.transform)
+        var newCharacter = Instantiate(_characterPrefab, newParent);
+        newCharacter.transform.position = characterPosition;
+        
+        AssignCharacterMaterial(newCharacter);
+        if (!isFake)
         {
-            _characterBodyParts.Add(child);
+            _currentCharacter = newCharacter;
         }
-        AssignCharacterMaterial();
-        var camera = _currentCharacter.transform.GetComponentInChildren<Camera>();
-      
-        _idSpawner.SpawnId(camera);
+        return newCharacter;
     }
 
-    private void AssignCharacterMaterial()
+
+
+    public void AssignCharacterMaterial(GameObject character)
     {
-        if(_currentCharacter == null)
+        var bodyParts = new List<Transform>();
+        foreach (Transform child in character.transform)
+        {
+            bodyParts.Add(child);
+        }
+        if (bodyParts == null)
         {
             return;
         }
         foreach(var bodyPartName in _bodyPartNames)
         {
-            var correspondingBodyParts = _characterBodyParts.Where(bp => bp.name.Contains(bodyPartName));
+            var correspondingBodyParts = bodyParts.Where(bp => bp.name.Contains(bodyPartName));
             int randomIndex = Random.Range(0, _characterMaterials.Count);
             var chosenMaterial = _characterMaterials[randomIndex];
             foreach(var bodyPart in correspondingBodyParts)

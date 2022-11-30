@@ -40,6 +40,11 @@ public class ScoreManager : MonoBehaviour
         {
             correct = false;
         }
+        if (_idSpawner._currentId.GetComponent<CharacterID>().isPhotoFake)
+        {
+            correct = false;
+        }
+
 
         if(correct == answer)
         {
@@ -50,7 +55,14 @@ public class ScoreManager : MonoBehaviour
             _score--;
         }
 
+
+        _characterSpawner._currentCharacter.GetComponent<Character>().CanEnter(answer);
+
+
         _scoreText.text = $"Score: {_score}";
-        _characterSpawner.SpawnNewCharacter();
+
+        //Destroy(_characterSpawner._currentCharacter);
+        //var character = _characterSpawner.SpawnNewCharacter();
+        //_characterSpawner.SpawnNewId(character);
     }
 }

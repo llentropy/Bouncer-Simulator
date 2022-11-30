@@ -9,18 +9,20 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
-    internal class CharacterID : MonoBehaviour
+    public class CharacterID : MonoBehaviour
     {
         public string Name;
         public DateTime Birthday;
+        public bool isPhotoFake = false;
 
-        public void Initialize(string name, DateTime birthday, RenderTexture photoId)
+        public void Initialize(string name, DateTime birthday, RenderTexture photoId, bool givenIsPhotoFake)
         {
             Name = name;
             _nameField.text = name;
             Birthday = birthday;
             _dateField.text = birthday.ToString("dd/MM/yyy");
             _photoField.texture = photoId;
+            isPhotoFake = givenIsPhotoFake;
 
         }
         public RenderTexture PhotoRenderTexture { get; set; }

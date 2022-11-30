@@ -2,6 +2,7 @@ using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,14 +13,38 @@ public class IDSpawner : MonoBehaviour
     private GameObject _idPrefab;
     public GameObject _currentId;
     [SerializeField]
-    private Vector2Int idResolution = new Vector2Int(25, 25);
-    [SerializeField]
     private DateTime baseDate = new DateTime(1985, 01, 01);
+   
+    [SerializeField]
+    private CharacterSpawner _characterSpawner;
 
     private List<string> names;
 
+    private static IDSpawner _instance;
+
+    public static IDSpawner Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new IDSpawner();
+            }
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+    }
+
     public void Start()
     {
+        
         TextAsset namesFile = (TextAsset)Resources.Load("names", typeof(TextAsset));
         names = new List<string>(namesFile.text.Split('\n'));
     }
@@ -36,10 +61,11 @@ public class IDSpawner : MonoBehaviour
         return date;
     }
 
-    public void SpawnId(Camera camera)
+    public CharacterID SpawnId(GameObject character)
     {
-        var texture = new RenderTexture(idResolution.x, idResolution.y, 16);
-        //camera.targetTexture = texture;
+        var texture = character.GetComponent<Character>().idTexture;
+        var characterCamera = character.transform.GetComponentInChildren<Camera>();
+
         if (_currentId != null)
         {
             Destroy(_currentId);
@@ -47,27 +73,7 @@ public class IDSpawner : MonoBehaviour
 
         _currentId = Instantiate(_idPrefab, this.transform);
         var idObject = _currentId.GetComponent<CharacterID>();
-        idObject.Initialize(GenerateName(), GenerateBirthday(), texture);
-        SnapshotRoutine(camera, texture);
-
-    }
-
-    private void SnapshotRoutine(Camera camera, RenderTexture texture)
-    {
-
-        // If RenderTexture.active is set any rendering goes into this RenderTexture
-        // instead of the GameView
-        RenderTexture.active = texture;
-        camera.targetTexture = texture;
-
-        // renders into the renderTexture
-        camera.Render();
-
-
-        // reset the RenderTexture.active so nothing else is rendered into our RenderTexture      
-        //RenderTexture.active = null;
-        //camera.targetTexture = null;
-        //Destroy(camera.gameObject);
-
+        idObject.Initialize(GenerateName(), GenerateBirthday(), texture, character.GetComponent<Character>().IsPhotoFake);
+        return idObject;
     }
 }
