@@ -355,7 +355,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _idPrefab: {fileID: 8829631291952610030, guid: c05f933822a0c9245a05bd2e30afc133, type: 3}
   _currentId: {fileID: 0}
-  _characterSpawner: {fileID: 2070446240}
 --- !u!1 &362060390
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +397,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362060390}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -592,7 +591,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scoreText: {fileID: 1264979537}
-  _idSpawner: {fileID: 122534079}
   _characterSpawner: {fileID: 2070446240}
 --- !u!4 &575299997
 Transform:
@@ -894,7 +892,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.990566, g: 0.16260229, b: 0.89843535, a: 1}
+  m_Color: {r: 0.5660378, g: 0.018155891, b: 0.50516224, a: 1}
   m_Intensity: 0.8
   m_Range: 63.23
   m_SpotAngle: 156
@@ -2452,7 +2450,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080127495}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -3834,7 +3832,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterPrefab: {fileID: 1456095875854609040, guid: fcafd0e47d05ca64f8f54c11c1226a46, type: 3}
-  _idSpawner: {fileID: 122534079}
   _currentCharacter: {fileID: 0}
 --- !u!23 &198199289497033661
 MeshRenderer:

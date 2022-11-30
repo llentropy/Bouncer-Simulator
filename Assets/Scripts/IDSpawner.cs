@@ -14,9 +14,7 @@ public class IDSpawner : MonoBehaviour
     public GameObject _currentId;
     [SerializeField]
     private DateTime baseDate = new DateTime(1985, 01, 01);
-   
-    [SerializeField]
-    private CharacterSpawner _characterSpawner;
+  
 
     private List<string> names;
 

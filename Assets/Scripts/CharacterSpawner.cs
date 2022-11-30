@@ -13,6 +13,28 @@ public class CharacterSpawner : MonoBehaviour
     private List<Material> _characterMaterials;
 
     private static readonly string[] _bodyPartNames = { "Arm", "Leg", "Head", "Body" };
+
+    private static CharacterSpawner _instance;
+
+    public static CharacterSpawner Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new CharacterSpawner();
+            }
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+    }
     void Start()
     {
         var loadedMaterials = Resources.LoadAll("Materials", typeof(Material));

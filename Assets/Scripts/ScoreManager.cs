@@ -9,8 +9,7 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _scoreText;
-    [SerializeField]
-    private IDSpawner _idSpawner;
+
     [SerializeField]
     private CharacterSpawner _characterSpawner;
 
@@ -32,7 +31,7 @@ public class ScoreManager : MonoBehaviour
     {
         bool correct = true;
 
-        var id = _idSpawner._currentId.GetComponent<CharacterID>();
+        var id = IDSpawner.Instance._currentId.GetComponent<CharacterID>();
         int now = int.Parse(_levelDate.ToString("yyyyMMdd"));
         int dob = int.Parse(id.Birthday.ToString("yyyyMMdd"));
         int age = (now - dob) / 10000;
@@ -40,7 +39,7 @@ public class ScoreManager : MonoBehaviour
         {
             correct = false;
         }
-        if (_idSpawner._currentId.GetComponent<CharacterID>().isPhotoFake)
+        if (IDSpawner.Instance._currentId.GetComponent<CharacterID>().isPhotoFake)
         {
             correct = false;
         }

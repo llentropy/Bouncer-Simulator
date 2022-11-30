@@ -17,6 +17,8 @@ public class Character : MonoBehaviour
 
     public bool IsPhotoFake { get; private set; }
 
+    private bool IsExiting = false;
+
     private NavMeshAgent playerNavMesh;
     private Animator playerAnimator;
     private CharacterID characterID;
@@ -51,7 +53,8 @@ public class Character : MonoBehaviour
         if (playerNavMesh.velocity == Vector3.zero)
         {
             playerAnimator.SetBool("IsWalking", false);
-        }  else
+        }
+        else
         {
             playerAnimator.SetBool("IsWalking", true);
 
@@ -60,29 +63,36 @@ public class Character : MonoBehaviour
 
     public void CanEnter(bool characterEnters)
     {
+        IsExiting = true;
         if (characterEnters)
         {
             playerNavMesh.SetDestination(Waypoints.Instance.wayPointsList[2].position);
+            playerAnimator.SetInteger("Happiness", 1);
+
         }
         else
         {
             playerNavMesh.SetDestination(Waypoints.Instance.wayPointsList[0].position);
+            playerAnimator.SetInteger("Happiness", -1);
         }
         Destroy(characterID.gameObject);
     }
 
-    
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Desk")
         {
             characterID = IDSpawner.Instance.SpawnId(this.gameObject);
-        } else
+        }
+
+        if ((other.gameObject.name == "Start" || other.gameObject.name == "Finish") && IsExiting)
         {
-            if(this.transform.position != other.transform.position)
-            {
-            }
+
+            CharacterSpawner.Instance.SpawnNewCharacter();
+            Destroy(this.gameObject);
+
         }
     }
 
