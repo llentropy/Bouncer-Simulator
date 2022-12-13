@@ -999,8 +999,8 @@ Transform:
   m_GameObject: {fileID: 8829631291952610030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.005, y: 0.005, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4490217819668347241}
   - {fileID: 7332762962299160638}
@@ -1021,6 +1021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
+  isPhotoFake: 0
   _nameField: {fileID: 36154515126133952}
   _dateField: {fileID: 7940140889148870543}
   _photoField: {fileID: 4199862634108919745}
