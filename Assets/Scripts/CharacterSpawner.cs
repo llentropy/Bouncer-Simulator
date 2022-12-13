@@ -43,11 +43,19 @@ public class CharacterSpawner : MonoBehaviour
         {
             _characterMaterials.Add(material as Material);
         }
-        var character = SpawnNewCharacter();
+        SpawnNewCharacter();
     }
 
-    public GameObject SpawnNewCharacter(bool isFake = false)
+    public void SpawnNewCharacter(bool isFake = false)
     {
+
+        StartCoroutine(WaitForSpawn(isFake));
+        
+    }
+
+    private IEnumerator WaitForSpawn(bool isFake = false)
+    {
+        yield return new WaitForEndOfFrame();
         Vector3 characterPosition = Waypoints.Instance.wayPointsList[0].position;
         Transform newParent = this.transform;
         if (isFake)
@@ -57,15 +65,13 @@ public class CharacterSpawner : MonoBehaviour
         }
         var newCharacter = Instantiate(_characterPrefab, newParent);
         newCharacter.transform.position = characterPosition;
-        
+
         AssignCharacterMaterial(newCharacter);
         if (!isFake)
         {
             _currentCharacter = newCharacter;
         }
-        return newCharacter;
     }
-
 
 
     public void AssignCharacterMaterial(GameObject character)

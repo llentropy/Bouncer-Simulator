@@ -89,12 +89,12 @@ public class Character : MonoBehaviour
 
         if ((other.gameObject.name == "Start" || other.gameObject.name == "Finish") && IsExiting)
         {
-
             CharacterSpawner.Instance.SpawnNewCharacter();
             Destroy(this.gameObject);
-
         }
     }
+
+    
 
     void Snapshot()
     {

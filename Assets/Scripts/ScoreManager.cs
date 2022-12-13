@@ -31,7 +31,13 @@ public class ScoreManager : MonoBehaviour
     {
         bool correct = true;
 
+        if(IDSpawner.Instance._currentId == null)
+        {
+            return;
+        }
         var id = IDSpawner.Instance._currentId.GetComponent<CharacterID>();
+
+
         int now = int.Parse(_levelDate.ToString("yyyyMMdd"));
         int dob = int.Parse(id.Birthday.ToString("yyyyMMdd"));
         int age = (now - dob) / 10000;
