@@ -13,17 +13,22 @@ public class ScoreManager : MonoBehaviour
     [SerializeField]
     private CharacterSpawner _characterSpawner;
 
+    private int _approvedCustomers = 0;
+    private int _rejectedCustomers = 0;
+
     public DateTime _levelDate = new DateTime(2011, 05, 20);
 
     private int _score = 0;
 
     public void AnswerOk()
     {
+        _approvedCustomers++;
         CheckCorrect(true);
     }
 
     public void AnswerNope()
     {
+        _rejectedCustomers++;
         CheckCorrect(false);
     }
     
@@ -64,7 +69,10 @@ public class ScoreManager : MonoBehaviour
         _characterSpawner._currentCharacter.GetComponent<Character>().CanEnter(answer);
 
 
-        _scoreText.text = $"Score: {_score}";
+        _scoreText.text = $"" +
+            $"Approved: {_approvedCustomers}\n" +
+            $"Rejected: {_rejectedCustomers}\n" +
+            $"Score: {_score}";
 
         //Destroy(_characterSpawner._currentCharacter);
         //var character = _characterSpawner.SpawnNewCharacter();
