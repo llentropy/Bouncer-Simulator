@@ -25,10 +25,7 @@ public class Character : MonoBehaviour
     void Awake()
     {
         idTexture = new RenderTexture(idResolution.x, idResolution.y, 16);
-        playerNavMesh = GetComponent<NavMeshAgent>();
-        playerNavMesh.destination = Waypoints.Instance.wayPointsList[1].position;
-        playerAnimator = GetComponent<Animator>();
-        playerAnimator.SetBool("IsWalking", true);
+
         IsPhotoFake = Random.Range(0.0f, 1.0f) < fakePhotoProbability;
         if (IsPhotoFake)
         {
@@ -45,11 +42,25 @@ public class Character : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(WaitForSnapshot());
+    }
+
+    private IEnumerator WaitForSnapshot()
+    {
+        yield return new WaitForSeconds(0.5f);
         Snapshot();
+        playerNavMesh = GetComponent<NavMeshAgent>();
+        playerNavMesh.destination = Waypoints.Instance.wayPointsList[1].position;
+        playerAnimator = GetComponent<Animator>();
+        playerAnimator.SetBool("IsWalking", true);
     }
 
     private void Update()
     {
+        if(playerNavMesh == null)
+        {
+            return;
+        }
         if (playerNavMesh.velocity == Vector3.zero)
         {
             playerAnimator.SetBool("IsWalking", false);

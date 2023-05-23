@@ -35,6 +35,7 @@ public class CharacterSpawner : MonoBehaviour
             _instance = this;
         }
     }
+
     void Start()
     {
         var loadedMaterials = Resources.LoadAll("Materials", typeof(Material));

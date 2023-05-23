@@ -20,20 +20,53 @@ public class ScoreManager : MonoBehaviour
 
     private int _score = 0;
 
+    public bool CanAnswer = false;
+
+    private static ScoreManager _instance;
+
+    public static ScoreManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new ScoreManager();
+            }
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+    }
+
     public void AnswerOk()
     {
+        if (!CanAnswer)
+        {
+            return;
+        }
         _approvedCustomers++;
         CheckCorrect(true);
     }
 
     public void AnswerNope()
     {
+        if (!CanAnswer)
+        {
+            return;
+        }
         _rejectedCustomers++;
         CheckCorrect(false);
     }
     
     private void CheckCorrect(bool answer)
     {
+        CanAnswer = false;
         bool correct = true;
 
         if(IDSpawner.Instance._currentId == null)

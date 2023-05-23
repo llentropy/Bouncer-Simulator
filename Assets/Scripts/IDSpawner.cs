@@ -72,6 +72,7 @@ public class IDSpawner : MonoBehaviour
         _currentId = Instantiate(_idPrefab, this.transform);
         var idObject = _currentId.GetComponent<CharacterID>();
         idObject.Initialize(GenerateName(), GenerateBirthday(), texture, character.GetComponent<Character>().IsPhotoFake);
+        ScoreManager.Instance.CanAnswer = true;
         return idObject;
     }
 }
