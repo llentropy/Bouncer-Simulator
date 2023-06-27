@@ -94,10 +94,7 @@ public class ScoreManager : MonoBehaviour
         {
             _score++;
         }
-        else
-        {
-            _score--;
-        }
+        
 
 
         _characterSpawner._currentCharacter.GetComponent<Character>().CanEnter(answer);

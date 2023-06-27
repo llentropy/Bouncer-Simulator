@@ -27,10 +27,11 @@ public class Character : MonoBehaviour
         idTexture = new RenderTexture(idResolution.x, idResolution.y, 16);
 
         IsPhotoFake = Random.Range(0.0f, 1.0f) < fakePhotoProbability;
-        if (IsPhotoFake)
-        {
-            StartCoroutine(ReasignMaterials());
-        }
+        //if (IsPhotoFake)
+        //{
+        //    StartCoroutine(ReasignMaterials());
+        //}
+        StartCoroutine(WaitForSnapshot());
 
     }
 
@@ -38,17 +39,24 @@ public class Character : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         FindObjectOfType<CharacterSpawner>().AssignCharacterMaterial(this.gameObject);
+
     }
 
     private void Start()
     {
-        StartCoroutine(WaitForSnapshot());
     }
 
     private IEnumerator WaitForSnapshot()
     {
-        yield return new WaitForSeconds(0.5f);
+        
+        yield return new WaitForSeconds(0.2f);
         Snapshot();
+        yield return new WaitForSeconds(0.1f);
+
+        if (IsPhotoFake)
+        {
+            FindObjectOfType<CharacterSpawner>().AssignCharacterMaterial(this.gameObject);
+        }
         playerNavMesh = GetComponent<NavMeshAgent>();
         playerNavMesh.destination = Waypoints.Instance.wayPointsList[1].position;
         playerAnimator = GetComponent<Animator>();
@@ -73,7 +81,7 @@ public class Character : MonoBehaviour
     }
 
     public void CanEnter(bool characterEnters)
-    {
+       {
         IsExiting = true;
         if (characterEnters)
         {
