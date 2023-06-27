@@ -86,7 +86,10 @@ public class Character : MonoBehaviour
             playerNavMesh.SetDestination(Waypoints.Instance.wayPointsList[0].position);
             playerAnimator.SetInteger("Happiness", -1);
         }
-        Destroy(characterID.gameObject);
+        if(characterID != null)
+        {
+            Destroy(characterID.gameObject);
+        }
     }
 
 
@@ -100,7 +103,10 @@ public class Character : MonoBehaviour
 
         if ((other.gameObject.name == "Start" || other.gameObject.name == "Finish") && IsExiting)
         {
-            CharacterSpawner.Instance.SpawnNewCharacter();
+            if (!ScoreManager.Instance.gameEnded)
+            {
+                CharacterSpawner.Instance.SpawnNewCharacter();
+            }
             Destroy(this.gameObject);
         }
     }
