@@ -3895,7 +3895,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1200661300650851033, guid: eba0cf627fa40684ab6fef89b0b43cfb, type: 3}
       propertyPath: TimeLimit
-      value: 3
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1200661300650851033, guid: eba0cf627fa40684ab6fef89b0b43cfb, type: 3}
       propertyPath: AlarmTimeOutEvent.m_PersistentCalls.m_Calls.Array.size
