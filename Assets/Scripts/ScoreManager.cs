@@ -23,6 +23,7 @@ public class ScoreManager : MonoBehaviour
     public bool CanAnswer = false;
 
     private static ScoreManager _instance;
+    public bool gameEnded { get; private set; } = false;
 
     public static ScoreManager Instance
     {
@@ -69,7 +70,7 @@ public class ScoreManager : MonoBehaviour
         CanAnswer = false;
         bool correct = true;
 
-        if(IDSpawner.Instance._currentId == null)
+        if(IDSpawner.Instance._currentId == null || gameEnded)
         {
             return;
         }
@@ -93,10 +94,7 @@ public class ScoreManager : MonoBehaviour
         {
             _score++;
         }
-        else
-        {
-            _score--;
-        }
+        
 
 
         _characterSpawner._currentCharacter.GetComponent<Character>().CanEnter(answer);
@@ -110,5 +108,15 @@ public class ScoreManager : MonoBehaviour
         //Destroy(_characterSpawner._currentCharacter);
         //var character = _characterSpawner.SpawnNewCharacter();
         //_characterSpawner.SpawnNewId(character);
+    }
+
+    public void FinishGame()
+    {
+        _characterSpawner._currentCharacter.GetComponent<Character>().CanEnter(false);
+        gameEnded = true;
+        _scoreText.text = $"" +
+            $"Approved: {_approvedCustomers}\n" +
+            $"Rejected: {_rejectedCustomers}\n" +
+            $"Final Score: {_score}";
     }
 }
